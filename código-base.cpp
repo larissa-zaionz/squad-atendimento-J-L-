@@ -52,7 +52,7 @@ struct FilaPacientes {
         }
         tras->prox = aux;
         delete aux;
-        
+
         // Dica: crie um novo No, atualize 'tras' e 'frente' se necessário
         // ...
     }
@@ -60,9 +60,17 @@ struct FilaPacientes {
     // TODO 2: Implemente dequeue()
     //         Remove e retorna o nome do paciente na frente da fila
     string dequeue() {
+        string tmp = frente->nome;
+        No* aux = frente;
+        frente = aux->prox;
+        if(!frente) {
+            tras = nullptr;
+        }
+        delete aux;
+        
         // Dica: guarde o nome antes de deletar, atualize 'frente'
         //       se frente ficar nullptr, atualize 'tras' também!
-        return "";  // substitua pelo retorno correto
+        return tmp;  // substitua pelo retorno correto
     }
 
     // TODO 3: Implemente frente_peek() — ver quem está na frente sem remover
@@ -256,3 +264,4 @@ int main() {
 // [ ] Sem vazamentos de memória (todo new tem delete correspondente)
 // [ ] Repositório no GitHub com histórico de commits organizado
 // [ ] README.md com instrução de compilação e exemplo de saída
+
