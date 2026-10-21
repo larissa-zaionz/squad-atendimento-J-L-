@@ -45,6 +45,13 @@ struct FilaPacientes {
     // TODO 1: Implemente enqueue(nome, urgencia)
     //         Paciente entra no final da fila
     void enqueue(const string& nome, int urgencia) {
+        No* aux = new No(nome, urgencia);
+        if(!tras) {
+            frente = tras = aux;
+            return;
+        }
+        tras->prox = aux;
+        
         // Dica: crie um novo No, atualize 'tras' e 'frente' se necessário
         // ...
     }
@@ -52,9 +59,17 @@ struct FilaPacientes {
     // TODO 2: Implemente dequeue()
     //         Remove e retorna o nome do paciente na frente da fila
     string dequeue() {
+        string tmp = frente->nome;
+        No* aux = frente;
+        frente = aux->prox;
+        if(!frente) {
+            tras = nullptr;
+        }
+        delete aux;
+        
         // Dica: guarde o nome antes de deletar, atualize 'frente'
         //       se frente ficar nullptr, atualize 'tras' também!
-        return "";  // substitua pelo retorno correto
+        return tmp;  // substitua pelo retorno correto
     }
 
     // TODO 3: Implemente frente_peek() — ver quem está na frente sem remover
