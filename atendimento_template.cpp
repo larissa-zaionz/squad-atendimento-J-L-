@@ -130,7 +130,8 @@ struct PilhaHistorico {
     // TODO 6: Implemente peek()
     //         Retorna o último atendimento SEM remover
     string peek() const {
-        return "";  // substitua pelo retorno correto
+    if (isEmpty()) return "";
+    return topo->nome;
     }
 
     bool isEmpty() const { return topo == nullptr; }
@@ -151,17 +152,33 @@ struct ListaMedicos {
 
     // TODO 7: Implemente adicionarMedico(nome)
     //         Adiciona um médico no final da lista
-    void adicionarMedico(const string& nome) {
-        // Dica: percorra até o último nó e insira no final
-        // ...
+void adicionarMedico(const string& nome) {
+    No* novo = new No(nome);
+
+    if (head == nullptr) {
+        head = novo;
+        return;
     }
+
+    No* p = head;
+    while (p->prox != nullptr) {
+        p = p->prox;
+    }
+    p->prox = novo;
+}
 
     // TODO 8: Implemente chamarMedico()
     //         Remove e retorna o primeiro médico disponível
     string chamarMedico() {
-        // Dica: remova do início (como removerInicio da lista)
-        return "";  // substitua pelo retorno correto
-    }
+    if (head == nullptr) return "";
+
+    No* temp = head;
+    string nome = temp->nome;
+    head = head->prox;
+    delete temp;
+
+    return nome;
+}
 
     // TODO 9: Implemente percorrer()
     //         Imprime todos os médicos disponíveis
