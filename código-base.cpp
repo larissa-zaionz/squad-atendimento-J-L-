@@ -164,7 +164,21 @@ void imprimirHistorico(PilhaHistorico& hist) {
         cout << "(nenhum atendimento registrado)\n";
         return;
     }
-    // ...
+
+    PilhaHistorico pilhaTemporaria;   // guarda os atendimentos enquanto imprimimos
+    int numeroAtendimento = 1;
+
+    // 1) Desempilha tudo (do topo à base), imprimindo e guardando na pilha temporária
+    while (!hist.isEmpty()) {
+        string atendimentoAtual = hist.pop();
+        cout << "  " << numeroAtendimento++ << ". " << atendimentoAtual << "\n";
+        pilhaTemporaria.push(atendimentoAtual);
+    }
+
+    // 2) Devolve tudo para o histórico original, restaurando a ordem
+    while (!pilhaTemporaria.isEmpty()) {
+        hist.push(pilhaTemporaria.pop());
+    }
 }
 
 // ════════════════════════════════════════════════════════════════
