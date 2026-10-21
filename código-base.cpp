@@ -135,20 +135,19 @@ struct ListaMedicos {
     // TODO 9: Implemente percorrer()
     //         Imprime todos os médicos disponíveis
     void percorrer(const string& prefixo = "") const {
-        if (!prefixo.empty()) cout << prefixo << ": ";
-        // Dica: percorra com No* p = head; while(p) { ... p = p->prox; }
+    if (!prefixo.empty()) cout << prefixo << ": ";
+    if (!head) {
         cout << "(lista vazia)\n";
+        return;
     }
-
-    bool temMedico() const { return head != nullptr; }
-
-    ~ListaMedicos() {
-        while (head) {
-            No* t = head;
-            head  = head->prox;
-            delete t;
-        }
+    No* medicoAtual = head;
+    while (medicoAtual) {
+        cout << medicoAtual->nome;
+        if (medicoAtual->prox) cout << " -> ";
+        medicoAtual = medicoAtual->prox;
     }
+    cout << "\n";
+}
 };
 
 // ════════════════════════════════════════════════════════════════
