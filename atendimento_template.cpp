@@ -147,7 +147,17 @@ struct ListaMedicos {
         medicoAtual = medicoAtual->prox;
     }
     cout << "\n";
-}
+    }
+
+    bool temMedico() const { return head != nullptr; }
+
+    ~ListaMedicos() {
+        while (head) {
+            No* t = head;
+            head  = head->prox;
+            delete t;
+        }
+    }
 };
 
 // ════════════════════════════════════════════════════════════════
