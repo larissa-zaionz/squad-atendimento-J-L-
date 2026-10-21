@@ -1,4 +1,3 @@
-
 # Sistema de Atendimento — Squad Atendimento J-L
 
 Projeto da disciplina **PSC II** — Engenharia de Software, Faculdade Campo Real (Prof. Giovane Galvão).
@@ -28,7 +27,7 @@ Todas usam o mesmo nó base (`struct No`), com `nome`, `urgencia` e o ponteiro `
 Requisitos: compilador `g++` com suporte a C++17.
 
 ```bash
-g++ -std=c++17 -Wall -o atendimento atendimento.cpp
+g++ -std=c++17 -Wall -o atendimento atendimento_template.cpp
 ```
 
 ## Como executar
@@ -59,6 +58,6 @@ Toda alocação com `new` possui o `delete` correspondente: os destrutores de `F
 
 ```
 .
-├── atendimento.cpp # código-fonte
-└── README.md       # este arquivo
+├── atendimento_template.cpp   # código-fonte
+└── README.md                  # este arquivo
 ```
