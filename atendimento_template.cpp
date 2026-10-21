@@ -166,9 +166,18 @@ struct ListaMedicos {
     // TODO 9: Implemente percorrer()
     //         Imprime todos os médicos disponíveis
     void percorrer(const string& prefixo = "") const {
-        if (!prefixo.empty()) cout << prefixo << ": ";
-        // Dica: percorra com No* p = head; while(p) { ... p = p->prox; }
+    if (!prefixo.empty()) cout << prefixo << ": ";
+    if (!head) {
         cout << "(lista vazia)\n";
+        return;
+    }
+    No* medicoAtual = head;
+    while (medicoAtual) {
+        cout << medicoAtual->nome;
+        if (medicoAtual->prox) cout << " -> ";
+        medicoAtual = medicoAtual->prox;
+    }
+    cout << "\n";
     }
 
     bool temMedico() const { return head != nullptr; }
@@ -196,7 +205,21 @@ void imprimirHistorico(PilhaHistorico& hist) {
         cout << "(nenhum atendimento registrado)\n";
         return;
     }
-    // ...
+
+    PilhaHistorico pilhaTemporaria;   // guarda os atendimentos enquanto imprimimos
+    int numeroAtendimento = 1;
+
+    // 1) Desempilha tudo (do topo à base), imprimindo e guardando na pilha temporária
+    while (!hist.isEmpty()) {
+        string atendimentoAtual = hist.pop();
+        cout << "  " << numeroAtendimento++ << ". " << atendimentoAtual << "\n";
+        pilhaTemporaria.push(atendimentoAtual);
+    }
+
+    // 2) Devolve tudo para o histórico original, restaurando a ordem
+    while (!pilhaTemporaria.isEmpty()) {
+        hist.push(pilhaTemporaria.pop());
+    }
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -273,9 +296,9 @@ int main() {
 // [ ] TODO 6 — peek retorna o topo sem remover
 // [ ] TODO 7 — adicionarMedico insere no final da lista
 // [ ] TODO 8 — chamarMedico remove do início e retorna o nome
-// [ ] TODO 9 — percorrer imprime todos os médicos com setas
-// [ ] TODO 10 — imprimirHistorico imprime sem destruir os dados
+// [x] TODO 9 — percorrer imprime todos os médicos com setas
+// [x] TODO 10 — imprimirHistorico imprime sem destruir os dados
 // [ ] Programa compila sem warnings: g++ -std=c++17 -Wall -o sis main.cpp
 // [ ] Sem vazamentos de memória (todo new tem delete correspondente)
 // [ ] Repositório no GitHub com histórico de commits organizado
-// [ ] README.md com instrução de compilação e exemplo de saída
+// [x] README.md com instrução de compilação e exemplo de saída
