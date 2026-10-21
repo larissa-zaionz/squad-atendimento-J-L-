@@ -59,7 +59,11 @@ struct FilaPacientes {
 
     // TODO 3: Implemente frente_peek() — ver quem está na frente sem remover
     string frente_peek() const {
-        return "";  // substitua pelo retorno correto
+        if (frente == nullptr){
+            return ""; 
+        }
+
+        return frente->nome;
     }
 
     bool isEmpty() const { return frente == nullptr; }
@@ -87,13 +91,25 @@ struct PilhaHistorico {
     // TODO 4: Implemente push(nome)
     //         Empilha um atendimento concluído
     void push(const string& nome) {
+        No* novo = new No(nome);
+
+        novo->prox = topo;
+        topo = novo;
         // ...
     }
 
     // TODO 5: Implemente pop()
     //         Desempilha e retorna o último atendimento
     string pop() {
-        return "";  // substitua pelo retorno correto
+        if (topo == nullptr) return "";  // substitua pelo retorno correto
+        
+        No* temp = topo;
+        string nome = temp->nome;
+
+        topo = topo->prox;
+        delete temp;
+
+        return nome;
     }
 
     // TODO 6: Implemente peek()
