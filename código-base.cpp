@@ -93,14 +93,7 @@ struct PilhaHistorico {
     // TODO 5: Implemente pop()
     //         Desempilha e retorna o último atendimento
     string pop() {
-    if (isEmpty()) return "";
-
-    No* temp = topo;
-    string nome = temp->nome;
-    topo = topo->prox;
-    delete temp;
-
-    return nome;
+        return "";  // substitua pelo retorno correto
     }
 
     // TODO 6: Implemente peek()
@@ -140,8 +133,8 @@ struct ListaMedicos {
     while (p->prox != nullptr) {
         p = p->prox;
     }
-    p->prox = novo; 
-    }
+    p->prox = novo;
+}
 
     // TODO 8: Implemente chamarMedico()
     //         Remove e retorna o primeiro médico disponível
@@ -154,7 +147,7 @@ struct ListaMedicos {
     delete temp;
 
     return nome;
-    }
+}
 
     // TODO 9: Implemente percorrer()
     //         Imprime todos os médicos disponíveis
