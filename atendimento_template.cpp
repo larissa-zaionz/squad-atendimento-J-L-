@@ -45,6 +45,13 @@ struct FilaPacientes {
     // TODO 1: Implemente enqueue(nome, urgencia)
     //         Paciente entra no final da fila
     void enqueue(const string& nome, int urgencia) {
+        No* aux = new No(nome, urgencia);
+        if(!tras) {
+            frente = tras = aux;
+            return;
+        }
+        tras->prox = aux;
+        
         // Dica: crie um novo No, atualize 'tras' e 'frente' se necessário
         // ...
     }
@@ -52,14 +59,26 @@ struct FilaPacientes {
     // TODO 2: Implemente dequeue()
     //         Remove e retorna o nome do paciente na frente da fila
     string dequeue() {
+        string tmp = frente->nome;
+        No* aux = frente;
+        frente = aux->prox;
+        if(!frente) {
+            tras = nullptr;
+        }
+        delete aux;
+        
         // Dica: guarde o nome antes de deletar, atualize 'frente'
         //       se frente ficar nullptr, atualize 'tras' também!
-        return "";  // substitua pelo retorno correto
+        return tmp;  // substitua pelo retorno correto
     }
 
     // TODO 3: Implemente frente_peek() — ver quem está na frente sem remover
     string frente_peek() const {
-        return "";  // substitua pelo retorno correto
+        if (frente == nullptr){
+            return ""; 
+        }
+
+        return frente->nome;
     }
 
     bool isEmpty() const { return frente == nullptr; }
@@ -87,13 +106,25 @@ struct PilhaHistorico {
     // TODO 4: Implemente push(nome)
     //         Empilha um atendimento concluído
     void push(const string& nome) {
+        No* novo = new No(nome);
+
+        novo->prox = topo;
+        topo = novo;
         // ...
     }
 
     // TODO 5: Implemente pop()
     //         Desempilha e retorna o último atendimento
     string pop() {
-        return "";  // substitua pelo retorno correto
+        if (topo == nullptr) return "";  // substitua pelo retorno correto
+        
+        No* temp = topo;
+        string nome = temp->nome;
+
+        topo = topo->prox;
+        delete temp;
+
+        return nome;
     }
 
     // TODO 6: Implemente peek()
@@ -152,9 +183,18 @@ void adicionarMedico(const string& nome) {
     // TODO 9: Implemente percorrer()
     //         Imprime todos os médicos disponíveis
     void percorrer(const string& prefixo = "") const {
-        if (!prefixo.empty()) cout << prefixo << ": ";
-        // Dica: percorra com No* p = head; while(p) { ... p = p->prox; }
+    if (!prefixo.empty()) cout << prefixo << ": ";
+    if (!head) {
         cout << "(lista vazia)\n";
+        return;
+    }
+    No* medicoAtual = head;
+    while (medicoAtual) {
+        cout << medicoAtual->nome;
+        if (medicoAtual->prox) cout << " -> ";
+        medicoAtual = medicoAtual->prox;
+    }
+    cout << "\n";
     }
 
     bool temMedico() const { return head != nullptr; }
@@ -182,7 +222,21 @@ void imprimirHistorico(PilhaHistorico& hist) {
         cout << "(nenhum atendimento registrado)\n";
         return;
     }
-    // ...
+
+    PilhaHistorico pilhaTemporaria;   // guarda os atendimentos enquanto imprimimos
+    int numeroAtendimento = 1;
+
+    // 1) Desempilha tudo (do topo à base), imprimindo e guardando na pilha temporária
+    while (!hist.isEmpty()) {
+        string atendimentoAtual = hist.pop();
+        cout << "  " << numeroAtendimento++ << ". " << atendimentoAtual << "\n";
+        pilhaTemporaria.push(atendimentoAtual);
+    }
+
+    // 2) Devolve tudo para o histórico original, restaurando a ordem
+    while (!pilhaTemporaria.isEmpty()) {
+        hist.push(pilhaTemporaria.pop());
+    }
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -259,9 +313,9 @@ int main() {
 // [ ] TODO 6 — peek retorna o topo sem remover
 // [ ] TODO 7 — adicionarMedico insere no final da lista
 // [ ] TODO 8 — chamarMedico remove do início e retorna o nome
-// [ ] TODO 9 — percorrer imprime todos os médicos com setas
-// [ ] TODO 10 — imprimirHistorico imprime sem destruir os dados
+// [x] TODO 9 — percorrer imprime todos os médicos com setas
+// [x] TODO 10 — imprimirHistorico imprime sem destruir os dados
 // [ ] Programa compila sem warnings: g++ -std=c++17 -Wall -o sis main.cpp
 // [ ] Sem vazamentos de memória (todo new tem delete correspondente)
 // [ ] Repositório no GitHub com histórico de commits organizado
-// [ ] README.md com instrução de compilação e exemplo de saída
+// [x] README.md com instrução de compilação e exemplo de saída
