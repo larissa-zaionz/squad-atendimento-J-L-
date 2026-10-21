@@ -121,7 +121,7 @@ struct ListaMedicos {
 
     // TODO 7: Implemente adicionarMedico(nome)
     //         Adiciona um médico no final da lista
-   void adicionarMedico(const string& nome) {
+void adicionarMedico(const string& nome) {
     No* novo = new No(nome);
 
     if (head == nullptr) {
@@ -138,7 +138,7 @@ struct ListaMedicos {
 
     // TODO 8: Implemente chamarMedico()
     //         Remove e retorna o primeiro médico disponível
-   string chamarMedico() {
+    string chamarMedico() {
     if (head == nullptr) return "";
 
     No* temp = head;
