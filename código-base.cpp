@@ -1,6 +1,6 @@
 // ╔══════════════════════════════════════════════════════════════════════════╗
-// ║  DESAFIO SQUAD — Sistema de Atendimento                                 ║
-// ║  PSC II · Engenharia de Software · Campo Real · Prof. Giovane Galvão    ║
+// ║  DESAFIO SQUAD — Sistema de Atendimento                                  ║
+// ║  PSC II · Engenharia de Software · Campo Real · Prof. Giovane Galvão     ║
 // ╠══════════════════════════════════════════════════════════════════════════╣
 // ║  Compilar:  g++ -std=c++17 -Wall -o atendimento atendimento_template.cpp ║
 // ║  Rodar:     ./atendimento                                                ║
@@ -8,7 +8,7 @@
 // ║  REGRAS:                                                                 ║
 // ║   • Não usar STL (vector, queue, stack, list etc.)                       ║
 // ║   • Toda alocação dinâmica (new) deve ter seu delete correspondente      ║
-// ║   • Commitar a cada requisito implementado (R1, R2, R3, R4)             ║
+// ║   • Commitar a cada requisito implementado (R1, R2, R3, R4)              ║
 // ║   • README.md no repositório explicando como compilar e usar             ║
 // ╠══════════════════════════════════════════════════════════════════════════╣
 // ║  RANKING:                                                                ║
@@ -45,6 +45,14 @@ struct FilaPacientes {
     // TODO 1: Implemente enqueue(nome, urgencia)
     //         Paciente entra no final da fila
     void enqueue(const string& nome, int urgencia) {
+        No* aux = new No(nome, urgencia);
+        if(!tras) {
+            frente = tras = aux;
+            return;
+        }
+        tras->prox = aux;
+        delete aux;
+        
         // Dica: crie um novo No, atualize 'tras' e 'frente' se necessário
         // ...
     }
