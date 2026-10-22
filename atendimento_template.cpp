@@ -293,12 +293,6 @@ int main() {
     // ── Relatório final (R4) ──────────────────────────────────
     imprimirHistorico(historico);
 
-    // ── Commit sugerido ──────────────────────────────────────
-    cout << "\n💡 Lembrete de commits:\n";
-    cout << "  git add atendimento_template.cpp README.md\n";
-    cout << "  git commit -m \"feat: sistema de atendimento integrado (R1-R4)\"\n";
-    cout << "  git push origin main\n";
-
     return 0;
 }
 
